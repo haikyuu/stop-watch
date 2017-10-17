@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.summary-table {
+  margin: 25px;
+  border: solid 1px gray;
+  padding: 1px;
+}
+.summary-table td {
+  padding: 5px;
+  border: solid 1px gray;
+}
