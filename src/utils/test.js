@@ -4,6 +4,7 @@ describe("formatElapsedTime", () => {
   it("formatElapsedTime() must accept numeric elapsedMilliseconds as its only argument", () => {
     let input = "three";
     let expectedOutput = "00:00:00";
+    //$FlowFixMe
     expect(formatElapsedTime(input)).toEqual(expectedOutput);
   });
   it("formatElapsedTime() correctly formats time less than a second", () => {
