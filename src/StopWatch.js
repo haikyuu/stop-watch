@@ -8,15 +8,13 @@ type Props = {
 type State = {
   laps: Array<number>,
   isStopped: boolean,
-  currentLapElapsedTime: number,
-  intervalId: number | null,
+  currentLapElapsedTime: number
 };
 class StopWatch extends React.Component<Props, State> {
   initialState = {
     isStopped: false,
     laps: [],
     currentLapElapsedTime: 0,
-    intervalId: null,
   };
   constructor(props: Props) {
     super(props);
@@ -28,9 +26,10 @@ class StopWatch extends React.Component<Props, State> {
     this.resume = this.resume.bind(this);
     this.reset = this.reset.bind(this);
     this.renderControlBar = this.renderControlBar.bind(this);
+    this.intervalId = null
   }
   start = () => {
-    const intervalId = setInterval(() => {
+    this.intervalId = setInterval(() => {
       this.setState((prevState, props) => ({
         ...prevState,
         currentLapElapsedTime: prevState.currentLapElapsedTime + props.tick,
@@ -39,13 +38,11 @@ class StopWatch extends React.Component<Props, State> {
 
     this.setState(prevState => ({
       ...prevState,
-      intervalId,
       isStopped: false,
     }));
   };
   stop = () => {
-    const { intervalId } = this.state;
-    intervalId !== null && clearInterval(intervalId);
+    this.intervalId !== null && clearInterval(this.intervalId);
     this.setState((prevState, props) => ({
       isStopped: true,
     }));
@@ -62,10 +59,11 @@ class StopWatch extends React.Component<Props, State> {
   };
   reset = () => {
     this.setState(this.initialState);
+    this.intervalId !== null && clearInterval(this.intervalId);
   };
   renderControlBar = () => {
-    const { isStopped, laps, intervalId } = this.state;
-    if (laps.length === 0 && intervalId === null) {
+    const { isStopped, laps } = this.state;
+    if (laps.length === 0 && this.intervalId === null) {
       return <button onClick={this.start}>Start</button>;
     } else if (!isStopped) {
       return [
