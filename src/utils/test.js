@@ -3,18 +3,18 @@ import { formatElapsedTime } from "./";
 describe("formatElapsedTime", () => {
   it("formatElapsedTime() must accept numeric elapsedMilliseconds as its only argument", () => {
     let input = "three";
-    let expectedOutput = "00:00:00";
+    let expectedOutput = "00:00.00";
     //$FlowFixMe
     expect(formatElapsedTime(input)).toEqual(expectedOutput);
   });
   it("formatElapsedTime() correctly formats time less than a second", () => {
     let input = 300;
-    let expectedOutput = "00.30";
+    let expectedOutput = "00:00.30";
     expect(formatElapsedTime(input)).toEqual(expectedOutput);
   });
   it("formatElapsedTime() correctly formats time less than a minute", () => {
     let input = 2500;
-    let expectedOutput = "02.50";
+    let expectedOutput = "00:02.50";
     expect(formatElapsedTime(input)).toEqual(expectedOutput);
   });
   it("formatElapsedTime() correctly formats time less than an hour", () => {

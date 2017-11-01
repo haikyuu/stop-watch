@@ -13,7 +13,7 @@ const formatElapsedTime = (elapsedMilliseconds: number): string => {
     Object.prototype.toString.call(elapsedMilliseconds).slice(8, -1) !==
       "Number"
   ) {
-    return "00:00:00";
+    return "00:00.00";
   } else {
     let milliseconds = parseInt((elapsedMilliseconds % 1000) / 10);
     let hours = parseInt(elapsedMilliseconds / 3600000);
@@ -25,12 +25,10 @@ const formatElapsedTime = (elapsedMilliseconds: number): string => {
       return `${twoDigits(hours)}:${twoDigits(minutes)}:${twoDigits(
         seconds,
       )}.${twoDigits(milliseconds)}`;
-    } else if (minutes) {
-      return `${twoDigits(minutes)}:${twoDigits(seconds)}.${twoDigits(
+    } else {
+      return `${twoDigits(minutes || 0)}:${twoDigits(seconds)}.${twoDigits(
         milliseconds,
       )}`;
-    } else {
-      return `${twoDigits(seconds)}.${twoDigits(milliseconds)}`;
     }
   }
 };

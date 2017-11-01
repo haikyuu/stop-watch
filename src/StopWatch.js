@@ -50,7 +50,7 @@ class StopWatch extends React.Component<Props, State> {
   lap = () => {
     this.setState((prevState, props) => ({
       ...prevState,
-      laps: [...prevState.laps, prevState.currentLapElapsedTime],
+      laps: [prevState.currentLapElapsedTime, ...prevState.laps],
       currentLapElapsedTime: 0,
     }));
   };
@@ -79,19 +79,20 @@ class StopWatch extends React.Component<Props, State> {
   };
   render() {
     const { laps, currentLapElapsedTime } = this.state;
-    const totalElapsedTime = laps.reduce((a, b) => a + b, 0);
+    const totalElapsedTime = laps.reduce((a, b) => a + b, 0) + currentLapElapsedTime;
     return (
       <div className="container">
         <h1>{formatElapsedTime(totalElapsedTime)}</h1>
         <h3>{formatElapsedTime(currentLapElapsedTime)}</h3>
         <table className="summary-table">
           {laps.map((lap, index) => {
+            const i = laps.length - index - 1
             const aggregatedElapsedTime = laps
-              .slice(0, index + 1)
-              .reduce((a, b) => a + b, 0);
+              .slice(0, i + 1)
+              .reduce((a, b) => a + b, 0)
             return (
-              <tr key={index}>
-                <td>{index}</td>
+              <tr key={i}>
+                <td>{i}</td>
                 <td>{formatElapsedTime(lap)}</td>
                 <td>{formatElapsedTime(aggregatedElapsedTime)}</td>
               </tr>
